@@ -11,12 +11,23 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Panel extends JPanel implements ActionListener {
-
-    Ellipse2D.Float ball = new Ellipse2D.Float(50, 100, 150, 150);
+    
+    private final int BALL_SIZE = 50;
+    private final int INIT_BALL_X = 50;
+    private final int INIT_BALL_Y = 100;
+    private final int BALL_SPEED_X = 2;
+    private final int BALL_SPEED_Y = 1;
+    
+    private final BasicStroke mainStroke = new BasicStroke(2);
+    
+    Ellipse2D.Float ball;
     Timer timer;
     
     public Panel() {
         setBackground(Color.WHITE);
+        
+        ball = new Ellipse2D.Float(INIT_BALL_X, INIT_BALL_Y, BALL_SIZE, BALL_SIZE);
+        
         timer = new Timer(10, this);
         timer.start();
     }
@@ -31,14 +42,14 @@ public class Panel extends JPanel implements ActionListener {
         g2D.fill(ball);
         
         g2D.setPaint(Color.black);
-        g2D.setStroke(new BasicStroke(5));
+        g2D.setStroke(mainStroke);
         g2D.draw(ball);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ball.x += 2;
-        ball.y += 1;
+        ball.x += BALL_SPEED_X;
+        ball.y += BALL_SPEED_Y;
         
         repaint();
     }
